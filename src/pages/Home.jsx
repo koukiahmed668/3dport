@@ -18,14 +18,18 @@ const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
   const [currentStage, setCurrentStage] = useState(1);
   const [showPopup, setShowPopup] = useState(true);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(() => !localStorage.getItem('hasLoadedBefore'));
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false); 
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, []);
+    if (loading) {
+      const timeout = setTimeout(() => {
+        setLoading(false);
+        localStorage.setItem('hasLoadedBefore', 'true'); // Store the flag
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [loading]);
+  
 
   const handleKeyDown = (event) => {
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
