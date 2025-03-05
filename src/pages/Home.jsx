@@ -8,6 +8,7 @@ import Plane from '../models/Plane';
 import HomeInfo from '../components/HomeInfo';
 import sakura from '../assets/sakura.mp3';
 import { soundoff, soundon } from '../assets/icons';
+import { useProgress } from '@react-three/drei';
 
 const Home = () => {
   const audioRef = useRef(new Audio(sakura));
@@ -19,16 +20,14 @@ const Home = () => {
   const [currentStage, setCurrentStage] = useState(1);
   const [showPopup, setShowPopup] = useState(true);
   const [loading, setLoading] = useState(() => !localStorage.getItem('hasLoadedBefore'));
+  const { progress } = useProgress();
 
   useEffect(() => {
-    if (loading) {
-      const timeout = setTimeout(() => {
-        setLoading(false);
-        localStorage.setItem('hasLoadedBefore', 'true'); // Store the flag
-      }, 3000);
-      return () => clearTimeout(timeout);
+    if (progress === 100) {
+      setLoading(false); 
     }
-  }, [loading]);
+  }, [progress]);
+
   
 
   const handleKeyDown = (event) => {
