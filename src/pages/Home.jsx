@@ -11,7 +11,7 @@ import { soundoff, soundon } from '../assets/icons';
 
 const Home = () => {
   const audioRef = useRef(new Audio(sakura));
-  audioRef.current.volume = 0.4;
+  audioRef.current.volume = 0.15;
   audioRef.current.loop = true;
 
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
@@ -25,7 +25,7 @@ const Home = () => {
       const timeout = setTimeout(() => {
         setLoading(false);
         localStorage.setItem('hasLoadedBefore', 'true'); // Store the flag
-      }, 3000);
+      }, 4500);
       return () => clearTimeout(timeout);
     }
   }, [loading]);
