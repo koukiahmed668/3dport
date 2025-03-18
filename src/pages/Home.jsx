@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Loader from '../components/Loader';
+import Loader, { CanvasLoader } from '../components/Loader';
 import Island from '../models/Island';
 import Sky from '../models/Sky';
 import Bird from '../models/Bird';
@@ -106,7 +106,7 @@ const Home = () => {
       {/* Show loading screen while loading */}
       {loading ? (
         <div className="absolute inset-0 flex justify-center items-center bg-black">
-          <div className="text-white text-xl animate-pulse">Loading...</div>
+          <Loader />
         </div>
       ) : (
         <>
@@ -126,7 +126,7 @@ const Home = () => {
             className={`w-full h-screen bg-transparent ${isRotating ? 'cursor-grabbing' : 'cursor-grab'}`}
             camera={{ near: 0.1, far: 1000 }}
           >
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<CanvasLoader />}>
               <directionalLight position={[1, 1, 1]} intensity={2} />
               <ambientLight intensity={0.5} />
               <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" intensity={1} />
